@@ -79,9 +79,17 @@ Example expected behavior (simplified):
 
 ---
 
+## Relation to LangGraph
+
+This project uses a single LangChain agent with tool calls. For more complex or multi-agent workflows, this design would naturally migrate to LangGraph, where:
+- Each tool call becomes an explicit node
+- State (user context, inventory, ranked items) is shared across nodes
+- Execution order and branching are deterministic and inspectable
+
+---
+
 ## License & Author
 
 - Author: Richard (local project)
-- License: MIT (feel free to add a LICENSE file)
 
 ---
