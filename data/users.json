@@ -1,0 +1,52 @@
+[
+  {
+    "username": "richard",
+    "name": "Richard Sugiarto",
+    "items": ["Keyboard", "Gaming Mouse", "Mousepad"]
+  },
+  {
+    "username": "alice",
+    "name": "Alice Chen",
+    "items": ["Laptop Stand", "Webcam"]
+  },
+  {
+    "username": "bob",
+    "name": "Bob Lin",
+    "items": ["Mechanical Keyboard", "Headset"]
+  },
+  {
+    "username": "carol",
+    "name": "Carol Wang",
+    "items": ["Monitor", "USB Hub"]
+  },
+  {
+    "username": "david",
+    "name": "David Huang",
+    "items": ["Webcam", "Microphone"]
+  },
+  {
+    "username": "emma",
+    "name": "Emma Liu",
+    "items": ["Laptop Sleeve", "Wireless Mouse"]
+  },
+  {
+    "username": "frank",
+    "name": "Frank Chou",
+    "items": ["Monitor Arm", "Keyboard"]
+  },
+  {
+    "username": "grace",
+    "name": "Grace Tsai",
+    "items": ["Bluetooth Speaker"]
+  },
+  {
+    "username": "henry",
+    "name": "Henry Wu",
+    "items": ["Docking Station", "USB Hub"]
+  },
+  {
+    "username": "ivy",
+    "name": "Ivy Chang",
+    "items": ["Noise Cancelling Headphones"]
+  }
+]

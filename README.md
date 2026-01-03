@@ -1,95 +1,153 @@
-# LangChain Recommendation Agent ⚡️
+# LangChain / LangGraph Recommendation Agent ⚡️
 
-A small example project that demonstrates how to create a structured-output agent using LangChain and Ollama. The agent calls simple Python tools to gather user history and store inventory, then recommends 3 items.
+This project demonstrates two complementary approaches to building a recommendation system using
+LangChain, Ollama, and LangGraph:
 
----
+1. **Structured-output LangChain Agent** (`main.py`)
+2. **Deterministic LangGraph Workflow** (`graph.py`) with JSON-backed user + store data
 
-## Features ✅
-
-- Uses LangChain (core) to create an agent with tool support
-- Uses Ollama via `langchain_ollama` as the LLM backend
-- Demonstrates structured output via a Pydantic model (`RecommendedUserItems`)
-- Simple tools: `get_user_history`, `get_store_inventory`, `rank_items`
+Both versions use simple Python tools to fetch purchase history, get store inventory, and rank candidate items.
 
 ---
 
-## Requirements 🔧
+## ✨ What’s Included
 
-- Python 3.10+
-- Ollama (running locally if you use the same configuration as `main.py`)
-- Project dependencies listed in `requirements.txt`
+### ✅ LangChain Agent (single-agent tool-calling)
+
+- Structured Pydantic output (`RecommendedUserItems`)
+- Tool calls handled implicitly by the agent
+- Good for prototyping and experimentation
+
+File: `main.py`
 
 ---
 
-## Quick setup (Windows) 💡
+### 🧩 LangGraph Recommendation Pipeline (enhanced)
 
-1. Create & activate a virtual environment
+A more realistic, production-style workflow:
 
-```powershell
-python -m venv langchainapp
-& .\langchainapp\Scripts\Activate.ps1
+- User history + inventory loaded from JSON files
+- Runtime arguments (username, store, top-k)
+- Deterministic node execution
+- Explicit state passing between nodes
+- DB-ready data-loading layer
+
+File: `graph.py`
+
+Graph stages:
+
+1. `fetch_user_history`
+2. `fetch_inventory`
+3. `build_candidates` (LLM selects likely next items)
+4. `recommend_items` (rank + return top-K)
+
+Output is returned as a structured `RecommendationResult`.
+
+---
+
+## 📂 Data Files
+
+Located in `data/`:
+
+- `users.json`
+- `stores.json`
+
+These simulate persistence and can later be replaced with a database.
+
+Example structure:
+
+```json
+[
+  {
+    "username": "richard",
+    "name": "Richard Sugiarto",
+    "items": ["Keyboard", "Mouse", "Headset"]
+  }
+]
+```
+## 🔧 Requirements
+
+Python 3.10+
+
+Ollama running locally
+
+Model available in Ollama (default: gpt-oss:20b)
+
+python-dotenv for environment loading
+
+Install dependencies:
+
+```pip install -r requirements.txt```
+
+
+Ensure Ollama model exists:
+
+```ollama pull gpt-oss:20b```
+
+## ▶️ Running the LangChain Agent (main.py)
+
+Runs a single agent that calls tools automatically:
+
+```python main.py```
+
+
+Behavior (simplified):
+
+```Calls get_user_history
+
+Calls get_store_inventory
+
+Calls rank_items
+
+Returns structured items=[...]
 ```
 
-2. Install dependencies
+## ▶️ Running the LangGraph Workflow (graph.py)
 
-```powershell
-pip install -r requirements.txt
+Supports runtime arguments:
+
+``` python graph.py --username richard --store ABC --top-k 3 ```
+
+
+Example output:
+
+``` Recommended items: ["Monitor", "Headset", "Webcam"] ```
+
+
+This version is closer to a real production pipeline because:
+
+tools are deterministic
+
+state is explicit + inspectable
+
+execution order is guaranteed
+
+data sources can be swapped for a DB
+
+## 🧠 How Recommendations Work
+
+Both implementations follow the same conceptual flow:
+
+```
+Fetch prior purchased items
+
+Fetch available store inventory
+
+Select promising candidate items
+
+Rank items + return top-K
 ```
 
-3. Ensure Ollama is running and that the model referenced in `main.py` (by default `gpt-oss:20b`) is available and the server is reachable at `http://localhost:11434/`.
+The LangGraph version delegates candidate selection to the LLM, while ranking remains a simple mock function.
 
-- Example Ollama steps (if you use Ollama):
-  - Install Ollama: https://ollama.ai/docs
-  - Pull the model if needed: `ollama pull gpt-oss:20b`
-  - Run Ollama (server): `ollama serve`
+## 🚀 Future Improvements
 
-> Note: `main.py` currently constructs the `ChatOllama` client with a hard-coded `base_url` and model. You can change those values or use environment variables if you prefer.
+Replace JSON files with database storage
 
----
+Support multiple stores per user
 
-## Running the example ▶️
+Extend LangGraph with branches or retries
 
-```powershell
-python main.py
-```
+## 👤 Author
 
-The script will create an agent, invoke it with a sample user request (see `main.py`) and print messages returned by the agent. The output demonstrates tool calls and the agent's `ToolMessage` for `rank_items`.
-
-Example expected behavior (simplified):
-
-- Agent calls `get_user_history("Richard")`
-- Agent calls `get_store_inventory("Store ABC")`
-- Agent calls `rank_items(...)` and returns a structured result containing `items: ["Keyboard","Mouse","Mousepad"]`
-
----
-
-## How it works (brief) 🧠
-
-- Tools are normal Python functions decorated with `@tool` from `langchain_core.tools`.
-- The agent is built with `create_agent(...)` and uses `ToolStrategy` with a Pydantic model `RecommendedUserItems` for structured output.
-- The LLM backend is `ChatOllama` and can be configured with a different model or base URL.
-
----
-
-## Extending this project ✨
-
-- Add more realistic implementations for the tools (database queries, real inventory APIs).
-- Replace the hard-coded model and base URL with environment variables (use `.env` + `python-dotenv` already in the project).
-- Add unit tests for the tools and integration tests for agent behavior.
-
----
-
-## Relation to LangGraph
-
-This project uses a single LangChain agent with tool calls. For more complex or multi-agent workflows, this design would naturally migrate to LangGraph, where:
-- Each tool call becomes an explicit node
-- State (user context, inventory, ranked items) is shared across nodes
-- Execution order and branching are deterministic and inspectable
-
----
-
-## License & Author
-
-- Author: Richard (local project)
-
----
+Richard

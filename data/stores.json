@@ -1,0 +1,52 @@
+[
+  {
+    "store_id": "ABC",
+    "store_name": "ABC Tech Store",
+    "items": ["Keyboard", "Gaming Mouse", "Mousepad", "Monitor", "Headset", "Webcam"]
+  },
+  {
+    "store_id": "XYZ",
+    "store_name": "XYZ Gadget Shop",
+    "items": ["Laptop Stand", "USB Hub", "Webcam", "Monitor"]
+  },
+  {
+    "store_id": "DEF",
+    "store_name": "DEF Office Supplies",
+    "items": ["Mechanical Keyboard", "Monitor Arm", "Docking Station"]
+  },
+  {
+    "store_id": "GHI",
+    "store_name": "GHI Audio Store",
+    "items": ["Microphone", "Bluetooth Speaker", "Headset"]
+  },
+  {
+    "store_id": "JKL",
+    "store_name": "JKL Laptop Accessories",
+    "items": ["Laptop Sleeve", "Wireless Mouse", "USB Hub"]
+  },
+  {
+    "store_id": "MNO",
+    "store_name": "MNO Display Center",
+    "items": ["4K Monitor", "Monitor Stand"]
+  },
+  {
+    "store_id": "PQR",
+    "store_name": "PQR Streaming Gear",
+    "items": ["Webcam", "Ring Light", "Microphone"]
+  },
+  {
+    "store_id": "STU",
+    "store_name": "STU Workstation Shop",
+    "items": ["Docking Station", "Keyboard", "Mouse"]
+  },
+  {
+    "store_id": "VWX",
+    "store_name": "VWX Audio Lab",
+    "items": ["Noise Cancelling Headphones", "Bluetooth Speaker"]
+  },
+  {
+    "store_id": "YZA",
+    "store_name": "YZA Productivity Store",
+    "items": ["Planner Tablet", "Stylus", "USB Hub"]
+  }
+]
